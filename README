@@ -1,0 +1,44 @@
+# 💌 Generador de Invitaciones Animadas (React + TS)
+
+[cite_start]Este proyecto incluye un script de automatización en Bash diseñado para configurar rápidamente un entorno de desarrollo moderno dedicado a la creación de tarjetas de invitación digitales con animaciones fluidas[cite: 1, 2, 3].
+
+## 🚀 Tecnologías Incluidas
+
+El script configura automáticamente las siguientes herramientas:
+* [cite_start]**Vite**: Para un entorno de desarrollo ultra rápido[cite: 3].
+* [cite_start]**React & TypeScript**: Para una estructura de código robusta y tipado seguro en las propiedades de la invitación[cite: 1, 9].
+* [cite_start]**Framer Motion**: El estándar para animaciones declarativas, gestos (hover/tap) y transiciones de entrada[cite: 6, 7].
+* [cite_start]**Tailwind CSS**: Para un diseño ágil de estilos elegantes (bordes dorados, sombras, tipografías) directamente en el HTML[cite: 3, 8].
+
+## 🛠️ Instrucciones de Uso
+
+Sigue estos pasos para generar tu proyecto:
+
+1.  **Crear el archivo del script**:
+    [cite_start]Copia el código del script proporcionado en un archivo llamado `setup-invitacion.sh`[cite: 4].
+
+2.  **Otorgar permisos de ejecución**:
+    Abre una terminal y ejecuta el siguiente comando para dar permisos al archivo[cite: 5]:
+    ```bash
+    chmod +x setup-invitacion.sh
+    ```
+
+3.  **Ejecutar el script**:
+    Inicia la configuración automática ejecutando[cite: 5]:
+    ```bash
+    ./setup-invitacion.sh
+    ```
+
+4.  **Iniciar el desarrollo**:
+    Una vez finalizado, entra en la carpeta creada y lanza el servidor local[cite: 5]:
+    ```bash
+    cd invitacion-animada
+    npm run dev
+    ```
+
+## 📄 Estructura de la Invitación
+
+Una vez instalado, puedes reemplazar el contenido de tu archivo `App.tsx` con componentes animados. [cite_start]Gracias a **Framer Motion**, puedes crear efectos de entrada con `initial` y `animate`, asegurando una experiencia visual premium para los invitados[cite: 5, 7].
+
+---
+[cite_start]*Nota: Este script está optimizado para flujos de trabajo rápidos y diseños altamente personalizados como bodas, cumpleaños o eventos especiales[cite: 10].*

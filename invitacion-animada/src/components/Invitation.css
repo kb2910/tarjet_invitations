@@ -1,0 +1,413 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+.invitation-container {
+  --env-back: #d13045;
+  --env-left: #e84a5f;
+  --env-right: #e84a5f;
+  --env-bottom: #f26678;
+  --env-top: #ff4d62;
+  --env-top-inside: #c0283a;
+  --card-bg: #fffbfb;
+  
+  background: radial-gradient(circle at top right, #9e005d, #000000 80%);
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Loading Screen */
+.loading-screen {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle at top right, #9e005d, #000000 80%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.loading-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  color: #ff99cc;
+  text-align: center;
+  padding: 0 20px;
+  text-shadow: 0 2px 10px rgba(255, 0, 128, 0.5);
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  animation: blink 1s step-end infinite;
+}
+
+.heart-icon {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.heart-icon.show {
+  opacity: 1;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Envelope Entry Animation */
+.envelope-enter {
+  animation: slideUpFade 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes slideUpFade {
+  0% { transform: translateY(100px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.scene {
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 320px;
+  height: 200px;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+}
+
+/* Hover state: slight tilt */
+.envelope-wrapper:not(.is-open):hover {
+  transform: rotateX(10deg) rotateY(-5deg) translateY(-10px);
+}
+
+/* Open state: move down to make room for card, slightly rotate */
+.envelope-wrapper.is-open {
+  transform: translateY(50px) rotateX(15deg) scale(1.1);
+  cursor: default;
+}
+
+.envelope {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.env-part {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.env-back {
+  background: var(--env-back);
+  transform: translateZ(-2px);
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.env-left {
+  background: var(--env-left);
+  clip-path: polygon(0 0, 0 100%, 50% 50%);
+  transform: translateZ(1px);
+  border-radius: 4px 0 0 4px;
+}
+
+.env-right {
+  background: var(--env-right);
+  clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+  transform: translateZ(1px);
+  border-radius: 0 4px 4px 0;
+}
+
+.env-bottom {
+  background: var(--env-bottom);
+  clip-path: polygon(0 100%, 100% 100%, 50% 45%);
+  transform: translateZ(2px);
+  border-radius: 0 0 4px 4px;
+}
+
+/* TOP FLAP */
+.env-top-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 130px;
+  transform-origin: top;
+  transform-style: preserve-3d;
+  transition: transform 0.6s 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  transform: translateZ(3px);
+}
+
+.is-open .env-top-wrapper {
+  transform: translateZ(3px) rotateX(180deg);
+  /* Opens faster when clicked */
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.env-top, .env-top-inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  backface-visibility: hidden;
+}
+
+.env-top {
+  background: var(--env-top);
+  /* The visible front side */
+}
+
+.env-top-inside {
+  background: var(--env-top-inside);
+  transform: rotateX(180deg);
+  /* The inner side, seen when open */
+}
+
+/* CARD */
+.card {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  right: 10px;
+  bottom: 5px;
+  background: var(--card-bg);
+  border-radius: 6px;
+  transform: translateY(0) translateZ(0px);
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ffe6eb;
+}
+
+.is-open .card {
+  transform: translateY(-130px) translateZ(5px) rotateZ(-3deg) scale(1.1);
+  transition-delay: 0.5s;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.is-open .card:hover {
+  transform: translateY(-140px) translateZ(20px) rotateZ(-1deg) scale(1.15);
+}
+
+.card h1 {
+  font-family: 'Dancing Script', cursive;
+  color: #d13045;
+  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+}
+
+.card p {
+  font-family: 'Poppins', sans-serif;
+  color: #555;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.heart {
+  position: absolute;
+  color: #ff4d62;
+  font-size: 20px;
+  opacity: 0;
+  transition: all 1s ease-out;
+}
+
+.is-open .heart {
+  animation: floatHeart 2s ease-in-out forwards;
+}
+
+.heart:nth-child(1) { left: 10%; bottom: 20%; animation-delay: 0.6s; }
+.heart:nth-child(2) { left: 30%; bottom: 10%; animation-delay: 0.8s; font-size: 25px; }
+.heart:nth-child(3) { left: 50%; bottom: 30%; animation-delay: 0.7s; font-size: 15px; }
+.heart:nth-child(4) { left: 70%; bottom: 15%; animation-delay: 0.9s; font-size: 30px; }
+.heart:nth-child(5) { left: 85%; bottom: 25%; animation-delay: 1.1s; font-size: 18px; }
+
+@keyframes floatHeart {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5) rotateZ(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-200px) scale(1.5) rotateZ(20deg);
+  }
+}
+
+/* Floating animation for closed envelope */
+@keyframes floatEnv {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.envelope-wrapper:not(.is-open) {
+  animation: floatEnv 3s ease-in-out infinite;
+}
+
+.seal {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateZ(4px);
+  width: 40px;
+  height: 40px;
+  background: #ffcc00;
+  border-radius: 50%;
+  z-index: 20;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #cc3300;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.is-open .seal {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Extra decorations */
+.card-decor {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #ff4d62;
+  opacity: 0.2;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.card-decor-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #ff4d62;
+  opacity: 0.2;
+  font-size: 3rem;
+  line-height: 1;
+  transform: rotate(180deg);
+}
+
+.click-me {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(20px);
+  color: white;
+  font-weight: 700;
+  font-size: 1.8rem;
+  font-family: 'Dancing Script', cursive;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  z-index: 50;
+  pointer-events: none;
+  animation: pulseMe 1.5s infinite;
+}
+
+@keyframes pulseMe {
+  0%, 100% { transform: translate(-50%, -50%) translateZ(20px) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) translateZ(20px) scale(1.1); opacity: 1; }
+}
+
+.is-open .click-me {
+  display: none;
+}
+
+/* Falling Flowers Background */
+.falling-petals-container {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.falling-flower {
+  position: absolute;
+  top: -10vh;
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle at top left, #ff4d62, #9e0031);
+  border-radius: 2px 15px 2px 15px;
+  opacity: 0.85;
+  animation: fallPetal 5s linear infinite;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  transform-origin: center;
+}
+
+@keyframes fallPetal {
+  0% { transform: translateY(-10vh) rotate(0deg) scale(1); opacity: 0; }
+  10% { opacity: 0.8; }
+  50% { transform: translateY(50vh) rotate(180deg) scale(1.2); opacity: 0.9; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(110vh) rotate(360deg) scale(0.8); opacity: 0; }
+}
+
+/* Hand with Bouquet */
+.hand-bouquet {
+  position: absolute;
+  bottom: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 150px;
+  transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 5;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
+}
+
+.is-open .hand-bouquet {
+  transform: translate(-50%, -230px) rotate(-5deg);
+  animation: floatHand 3s ease-in-out infinite alternate;
+  animation-delay: 1.5s;
+}
+
+@keyframes floatHand {
+  0% { transform: translate(-50%, -230px) rotate(-5deg); }
+  100% { transform: translate(-50%, -245px) rotate(5deg); }
+}

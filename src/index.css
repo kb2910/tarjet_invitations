@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #D4AF37;
+  --color-ivory: #FFFFF0;
+}
 
 body {
   background-color: #fdfcf0;

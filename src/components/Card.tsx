@@ -8,6 +8,7 @@ export function Card() {
         Te quiero muchísimo. Cada instante a tu lado es mágico
         y eres lo más hermoso que tengo en mi vida.
       </p>
+      <div className="signature">Atte. Tu amorcito KB</div>
     </div>
   );
 }
